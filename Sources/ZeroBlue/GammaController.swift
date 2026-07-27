@@ -29,7 +29,7 @@ enum GammaController {
                     display,
                     0.0, 1.0, 1.0,
                     0.0, 0.55, 1.0,
-                    0.0, 0.05, 1.0
+                    0.0, 0.0, 1.0
                 )
             }
             return
@@ -37,13 +37,14 @@ enum GammaController {
         // Gray needs R≈G≈B for a blue pixel's output, but a blue UI color's
         // red/green input starts near 0 - scaling alone can't lift a 0
         // input, so a floor (redMin/greenMin) is required to bring red and
-        // green up to meet blue instead of leaving blue dominant.
+        // green up to meet blue instead of leaving blue dominant. Blue
+        // itself is pinned to 0/0 so no blue light ever reaches the panel.
         for display in activeDisplay() {
             CGSetDisplayTransferByFormula(
                 display,
                 0.3, 0.6, 1.0,
                 0.1, 0.6, 1.0,
-                0.0, 0.3, 1.0
+                0.0, 0.0, 1.0
             )
         }
     }
