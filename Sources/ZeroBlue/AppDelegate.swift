@@ -30,7 +30,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let enabled = UserDefaults.standard.object(forKey: "zb.enabled") == nil
             ? true
             : UserDefaults.standard.bool(forKey: "zb.enabled")
-        if enabled {
+        let zeroBlue = UserDefaults.standard.bool(forKey: "zb.zeroBlue")
+        let zeroBlueOrange = UserDefaults.standard.object(forKey: "zb.zeroBlueOrange") == nil
+            ? true
+            : UserDefaults.standard.bool(forKey: "zb.zeroBlueOrange")
+        if enabled && zeroBlue {
+            GammaController.applyZeroBlue(orange: zeroBlueOrange)
+        } else if enabled {
             GammaController.apply(intensity: intensity == 0 ? 0.5 : intensity)
         }
     }
